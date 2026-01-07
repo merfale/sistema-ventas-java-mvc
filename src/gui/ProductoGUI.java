@@ -1,11 +1,15 @@
 package gui;
 
+import java.sql.Blob;
 import dao.ProductoDAO;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import javax.swing.table.DefaultTableModel;
 import java.sql.ResultSet;
+import javax.imageio.ImageIO;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -351,13 +355,14 @@ public class ProductoGUI extends javax.swing.JInternalFrame {
                     jtxtNombre.setText(rsProducto.getString(2));
                     jtxtPrecio.setText(String.format("%.2f", rsProducto.getDouble(3)));
                     jtxtObservacion.setText(rsProducto.getString(4));
-                    jtxtRutaFoto.setText(rsProducto.getString(5));
                     jlblFoto.setIcon(null);
-                    if (!jtxtRutaFoto.getText().isEmpty()) {
-                        ImageIcon imagen = new ImageIcon(jtxtRutaFoto.getText());
-                        Icon icono = new ImageIcon(imagen.getImage().getScaledInstance(jlblFoto.getWidth(), jlblFoto.getHeight(), Image.SCALE_DEFAULT));
-                        jlblFoto.setIcon(icono);
-                    }
+                    Blob FotoBlob = rsProducto.getBlob(5);
+                    byte[] data = FotoBlob.getBytes(1, (int) FotoBlob.length());
+                    BufferedImage foto = ImageIO.read(new ByteArrayInputStream(data));
+                    ImageIcon imagen = new ImageIcon(foto);
+                    Icon icon = new ImageIcon(imagen.getImage().getScaledInstance(jlblFoto.getWidth(), jlblFoto.getHeight(), Image.SCALE_DEFAULT));
+                    jlblFoto.setIcon(icon);
+                    this.repaint();
                     rsProducto.last();
                 }
             } while (rsProducto.next());
@@ -370,13 +375,13 @@ public class ProductoGUI extends javax.swing.JInternalFrame {
     private void jbtnGrabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnGrabarActionPerformed
         try {
             String mensaje = "";
-            String imagen = "C:/Users/Merca/Downloads/producto.jpg";
+            String defecto = "C:/Users/Merca/OneDrive/Documentos/Oracle Whit Java/PrySisVentas202502/src/imagen/producto.jpg";
             ProductoTO objProductoTO = new ProductoTO();
             objProductoTO.setNomb_prod(jtxtNombre.getText());
             objProductoTO.setPrec_prod(Double.parseDouble(jtxtPrecio.getText()));
             objProductoTO.setObsv_prod(jtxtObservacion.getText());
             if (jtxtRutaFoto.getText().isEmpty()) {
-                objProductoTO.setFoto_prod(imagen);
+                objProductoTO.setFoto_prod(defecto);
             } else {
                 objProductoTO.setFoto_prod(jtxtRutaFoto.getText());
             }
@@ -388,6 +393,7 @@ public class ProductoGUI extends javax.swing.JInternalFrame {
                 objProductoDAO.update(objProductoTO);
                 mensaje = "Registro Actualizado";
             }
+            
             habilitaControles(false);
             JOptionPane.showMessageDialog(rootPane, mensaje);
             limpiaControles();

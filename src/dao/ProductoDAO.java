@@ -3,6 +3,8 @@ package dao;
 
 import conexionMySql.ConexMySql;
 import interfaz.VentasInterface;
+import java.io.File;
+import java.io.FileInputStream;
 import java.sql.ResultSet;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -30,14 +32,16 @@ public class ProductoDAO implements VentasInterface<ProductoTO> {
         cs.setString(1, objObjeto.getNomb_prod());
         cs.setDouble(2, objObjeto.getPrec_prod());
         cs.setString(3, objObjeto.getObsv_prod());
-        cs.setString(4, objObjeto.getFoto_prod());
+        File objFile = new File(objObjeto.getFoto_prod());
+        FileInputStream objFileInputStream = new FileInputStream(objFile);
+        cs.setBinaryStream(4, objFileInputStream);
         cs.execute();
     }
 
     @Override
     public void update(ProductoTO objObjeto) throws Exception {
         Connection cn = ConexMySql.getInstance().getConnection();
-        String sql = "CALL sp_update_producto(?, ?, ?, ?, ?)";
+        String sql = "CALL sp_update_producto(?, ?, ?, ?, LOAD_FILE(?))";
         CallableStatement cs = cn.prepareCall(sql);
         cs.setInt(1, objObjeto.getId_producto());
         cs.setString(2, objObjeto.getNomb_prod());
