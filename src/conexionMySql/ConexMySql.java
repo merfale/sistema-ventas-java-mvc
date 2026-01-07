@@ -10,7 +10,7 @@ public class ConexMySql {
     private Connection connection = null;
 
     public ConexMySql() throws Exception {
-        String url = "jdbc:mysql://localhost:3306/venta202502";
+        String url = "jdbc:mysql://localhost:3306/ventas202502";
         Class.forName("com.mysql.jdbc.Driver");
         connection = DriverManager.getConnection(url, "root", "");
     }
