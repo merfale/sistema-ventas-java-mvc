@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d4d96716-99c9-43be-8b35-c1ffda040499">
+	<property name="ireport.zoom" value="0.75"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="fechaInicio" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fechaFin" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT * FROM v_auditoria_factura WHERE DATE(fech_fact) BETWEEN $P{fechaInicio} AND $P{fechaFin}]]>
+	</queryString>
+	<field name="id_factura" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fech_fact" class="java.time.LocalDateTime">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="id_cliente" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nomb_clie" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="id_empleado" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nomb_empl" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="apat_empl" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="stot_fact" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="igv_fact" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tota_fact" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="obsv_fact" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="esta_fact" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="transa" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="usuario" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fechahora" class="java.time.LocalDateTime">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<variable name="id_factura_1" class="java.lang.Integer" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{id_factura}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="38" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="21" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="20" uuid="f292a14d-ff7a-4169-b7f3-81f8fd3ae128"/>
+				<text><![CDATA[id_factura]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="1" width="100" height="20" uuid="4454b40a-4e9f-4a40-a8e5-d5a32518974c"/>
+				<text><![CDATA[fech_fact]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="237" y="1" width="100" height="20" uuid="bb1d7df0-ddf2-41bc-856e-9fa6a9eb815d"/>
+				<text><![CDATA[nomb_clie]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="353" y="1" width="100" height="20" uuid="4438dcb6-7112-464c-9710-66bcf3ca47df"/>
+				<text><![CDATA[tota_fact]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="453" y="1" width="100" height="20" uuid="604cdc1d-a0df-4814-95b7-76ce61b70323"/>
+				<text><![CDATA[transa]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="653" y="1" width="100" height="20" uuid="9e76aad8-17a8-40bc-95c5-adeb1eb6710d"/>
+				<text><![CDATA[fechahora]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="553" y="1" width="100" height="20" uuid="688554e1-6848-4eed-87ff-cad5976d86a4"/>
+				<text><![CDATA[usuario]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="100" height="20" uuid="54f9e243-8537-4290-80d7-158b605cdde6"/>
+				<textFieldExpression><![CDATA[$F{id_factura}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="237" y="0" width="100" height="20" uuid="12920596-4af1-4155-89ba-a0a824d11564"/>
+				<textFieldExpression><![CDATA[$F{nomb_clie}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="353" y="0" width="100" height="20" uuid="c073bf3b-2f29-450b-81aa-6da886c14527"/>
+				<textFieldExpression><![CDATA[$F{tota_fact}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="453" y="0" width="100" height="20" uuid="5852702b-208f-4876-b1e2-1524febc079e"/>
+				<textFieldExpression><![CDATA[$F{transa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="553" y="0" width="100" height="20" uuid="70b50018-f1ec-44a1-9055-be6a2c6d6b75"/>
+				<textFieldExpression><![CDATA[$F{usuario}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="653" y="0" width="100" height="20" uuid="3a37d842-ef33-4602-844b-39a629957b18"/>
+				<textFieldExpression><![CDATA[""+$F{fechahora}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="0" width="100" height="20" uuid="152313b5-5214-42ea-9605-1751ce4f9a33"/>
+				<textFieldExpression><![CDATA[""+$F{fech_fact}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
